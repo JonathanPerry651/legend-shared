@@ -1,0 +1,20 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "legend-shared-opentracing-servlet-filter",
+    srcs = glob(["src/main/java/**/*.java"]),
+    # resources = glob(["src/main/resources/**"]), # Assuming empty based on others
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:io_opentracing_opentracing_api",
+        "@maven//:io_opentracing_opentracing_util",
+        "@maven//:io_opentracing_opentracing_noop",
+        "@maven//:javax_servlet_javax_servlet_api",
+        "@maven//:javax_ws_rs_javax_ws_rs_api",
+        "@maven//:io_opentracing_contrib_opentracing_jaxrs2", # Likely needed for ServerTracingInterceptor
+        "@maven//:org_eclipse_jetty_jetty_server",
+        "@maven//:org_eclipse_jetty_jetty_servlet",
+        "@maven//:org_slf4j_slf4j_api",
+        "@maven//:io_prometheus_simpleclient",
+    ],
+)

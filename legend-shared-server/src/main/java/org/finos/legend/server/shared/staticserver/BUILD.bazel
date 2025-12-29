@@ -1,0 +1,29 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "staticserver",
+    srcs = [
+        "Server.java",
+        "StaticHealthcheck.java",
+        "StaticServerBundle.java",
+        "StaticServerConfiguration.java",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/bundles",
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/localassets",
+        "//legend-shared/legend-shared-pac4j",
+        "@maven//:io_dropwizard_dropwizard_core",
+        "@maven//:io_dropwizard_dropwizard_util",
+        "@maven//:io_dropwizard_dropwizard_lifecycle",
+        "@maven//:io_dropwizard_dropwizard_configuration",
+        "@maven//:io_dropwizard_metrics_metrics_healthchecks",
+        "@maven//:org_eclipse_jetty_jetty_server",
+        "@maven//:org_eclipse_jetty_jetty_servlet",
+        "@maven//:org_eclipse_jetty_jetty_servlets",
+         "@maven//:com_fasterxml_jackson_core_jackson_annotations",
+         "@maven//:javax_servlet_javax_servlet_api",
+         "@maven//:com_google_guava_guava",
+         "@maven//:org_eclipse_jetty_jetty_http",
+    ],
+)

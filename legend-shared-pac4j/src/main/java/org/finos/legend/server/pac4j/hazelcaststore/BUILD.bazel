@@ -1,0 +1,13 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "hazelcaststore",
+    srcs = glob(["*.java"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/internal",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/sessionutil",
+        "@maven//:com_hazelcast_hazelcast",
+        "@maven//:org_pac4j_pac4j_core",
+    ],
+)

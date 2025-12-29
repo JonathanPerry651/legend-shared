@@ -1,0 +1,16 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "legend-shared-opentracing-test",
+    srcs = [
+        "src/main/java/org/finos/legend/opentracing/ClientSenderTest.java",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//legend-shared/legend-shared-opentracing-base",
+        "@maven//:io_zipkin_reporter2_zipkin_reporter",
+        "@maven//:io_zipkin_zipkin2_zipkin",
+        "@maven//:com_squareup_okhttp3_mockwebserver",
+        "@maven//:junit_junit",
+    ],
+)

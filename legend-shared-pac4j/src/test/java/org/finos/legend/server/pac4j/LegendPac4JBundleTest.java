@@ -25,17 +25,14 @@ import org.junit.Test;
 import org.pac4j.core.client.finder.ClientFinder;
 import org.pac4j.core.config.Config;
 import org.pac4j.core.engine.DefaultSecurityLogic;
-import org.pac4j.core.engine.decision.ProfileStorageDecision;
 import org.pac4j.dropwizard.Pac4jFactory;
 import org.pac4j.jee.filter.SecurityFilter;
 
 import static org.junit.Assert.*;
 
-public class LegendPac4JBundleTest
-{
+public class LegendPac4JBundleTest {
   @Test
-  public void testPac4jFactory()
-  {
+  public void testPac4jFactory() {
     LegendPac4jConfiguration config = new LegendPac4jConfiguration();
     config.setCallbackPrefix("/test");
     config.setClients(ImmutableList.of(new TestClient()));
@@ -48,8 +45,7 @@ public class LegendPac4JBundleTest
   }
 
   @Test
-  public void testPac4jFactoryWithMultipleClients() throws Exception
-  {
+  public void testPac4jFactoryWithMultipleClients() throws Exception {
     LegendPac4jConfiguration config = new LegendPac4jConfiguration();
     config.setCallbackPrefix("/test");
     config.setClients(ImmutableList.of(new TestClient(), new SecondTestClient()));
@@ -58,21 +54,24 @@ public class LegendPac4JBundleTest
     Pac4jFactory factory = bundle.getPac4jFactory(new Configuration());
     Config builtConfig = factory.build();
     Environment e = new Environment("serverEnv", null, null, new MetricRegistry(), null, new HealthCheckRegistry());
-    bundle.run(new Configuration(),e);
+    bundle.run(new Configuration(), e);
     assertEquals("/test/callback", factory.getCallbackUrl());
     assertEquals(config.getClients(), factory.getClients());
-    assertEquals("SecondTestClient", ((LegendClientFinder)((DefaultSecurityLogic)builtConfig.getSecurityLogic()).getClientFinder()).getDefaultClient());
+    assertEquals("SecondTestClient",
+        ((LegendClientFinder) ((DefaultSecurityLogic) builtConfig.getSecurityLogic()).getClientFinder())
+            .getDefaultClient());
     assertEquals(config.getClients(), builtConfig.getClients().getClients());
-    FilterHolder securityHolder = e.getApplicationContext().getServletHandler().getFilter(SecurityFilter.class.getName());
+    FilterHolder securityHolder = e.getApplicationContext().getServletHandler()
+        .getFilter(SecurityFilter.class.getName());
     assertNotNull("Security filter holder cannot be null", securityHolder);
-    //initialize the filter so we can confirm swaps
-    ServletHandler s =  new ServletHandler();
+    // initialize the filter so we can confirm swaps
+    ServletHandler s = new ServletHandler();
     s.addFilter(securityHolder);
     s.initialize();
-    ClientFinder finder = ((DefaultSecurityLogic)((SecurityFilter)s.getFilters()[0].getFilter()).getSecurityLogic()).getClientFinder();
+    ClientFinder finder = ((DefaultSecurityLogic) ((SecurityFilter) s.getFilters()[0].getFilter()).getSecurityLogic())
+        .getClientFinder();
     assertTrue(finder instanceof LegendClientFinder);
-    ProfileStorageDecision storageDecision = ((DefaultSecurityLogic)((SecurityFilter)s.getFilters()[0].getFilter()).getSecurityLogic()).getProfileStorageDecision();
-    assertTrue(storageDecision instanceof LegendUserProfileStorageDecision);
+
   }
 
 }

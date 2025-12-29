@@ -1,0 +1,23 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "legend-shared-pac4j-kerberos",
+    srcs = [
+        "src/main/java/org/finos/legend/server/pac4j/kerberos/DelegationKerberosAuthenticator.java",
+        "src/main/java/org/finos/legend/server/pac4j/kerberos/KerberosClient.java",
+        "src/main/java/org/finos/legend/server/pac4j/kerberos/KerberosProfile.java",
+        "src/main/java/org/finos/legend/server/pac4j/kerberos/LocalCredentials.java",
+        "src/main/java/org/finos/legend/server/pac4j/kerberos/LocalKerberosClient.java",
+        "src/main/java/org/finos/legend/server/pac4j/kerberos/local/LocalLoginConfiguration.java",
+        "src/main/java/org/finos/legend/server/pac4j/kerberos/local/SystemAccountLoginConfiguration.java",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//legend-shared/legend-shared-pac4j",
+        "@maven//:com_fasterxml_jackson_core_jackson_annotations",
+        "@maven//:javax_servlet_javax_servlet_api",
+        "@maven//:org_pac4j_pac4j_kerberos",
+        "@maven//:org_pac4j_pac4j_core",
+        "@maven//:org_slf4j_slf4j_api",
+    ],
+)

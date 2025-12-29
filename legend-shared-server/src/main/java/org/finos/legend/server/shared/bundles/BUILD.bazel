@@ -1,0 +1,35 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "bundles",
+    srcs = [
+        "ChainFixingFilterHandler.java",
+        "CorsBundleWrapper.java",
+        "HostnameHeaderBundle.java",
+        "HtmlRouterRedirectBundle.java",
+        "LocalAssetBundle.java",
+        "OpenTracingBundle.java",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/localassets",
+        "//legend-shared/legend-shared-opentracing-base",
+        "//legend-shared/legend-shared-opentracing-jersey",
+        "//legend-shared/legend-shared-opentracing-servlet-filter",
+        "//legend-shared/legend-shared-pac4j",
+        "@maven//:io_dropwizard_dropwizard_core",
+        "@maven//:io_dropwizard_dropwizard_lifecycle",
+        "@maven//:io_dropwizard_dropwizard_servlets",
+        "@maven//:javax_servlet_javax_servlet_api",
+        "@maven//:javax_ws_rs_javax_ws_rs_api",
+        "@maven//:com_google_guava_guava",
+        "@maven//:io_opentracing_opentracing_api",
+        "@maven//:io_opentracing_opentracing_util",
+        "@maven//:io_opentracing_contrib_opentracing_jaxrs2",
+        "@maven//:org_eclipse_jetty_jetty_servlets",
+        "@maven//:org_eclipse_jetty_jetty_servlet",
+        "@maven//:org_eclipse_jetty_jetty_http",
+        "@maven//:org_eclipse_jetty_jetty_server",
+        "@maven//:javax_annotation_javax_annotation_api",
+    ],
+)

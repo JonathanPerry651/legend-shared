@@ -22,14 +22,11 @@ import org.commonjava.mimeparse.MIMEParse;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.http.ajax.DefaultAjaxRequestResolver;
 
-public class AcceptHeaderAjaxRequestResolver extends DefaultAjaxRequestResolver
-{
+public class AcceptHeaderAjaxRequestResolver extends DefaultAjaxRequestResolver {
   @Override
-  public boolean isAjax(WebContext context)
-  {
+  public boolean isAjax(WebContext context) {
     String acceptHeader = context.getRequestHeader(HttpHeaders.ACCEPT).orElse("");
-    if (Strings.isNullOrEmpty(acceptHeader))
-    {
+    if (Strings.isNullOrEmpty(acceptHeader)) {
       return true;
     }
     String mimeType = MIMEParse.bestMatch(Collections.singleton(MediaType.HTML_UTF_8.toString()),

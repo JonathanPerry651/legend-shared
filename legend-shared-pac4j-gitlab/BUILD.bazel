@@ -1,0 +1,33 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "legend-shared-pac4j-gitlab",
+    srcs = [
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabClient.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabClientConfig.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabGroupAuthorizer.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabGroupAuthorizerConfig.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabPersonalAccessTokenAuthenticator.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabPersonalAccessTokenClient.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabPersonalAccessTokenCredentials.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabPersonalAccessTokenExtractor.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabPersonalAccessTokenProfile.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/GitlabPersonalAccessTokenProfileCreator.java",
+        "src/main/java/org/finos/legend/server/pac4j/gitlab/ssl/TrustManagerComposite.java",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//legend-shared/legend-shared-pac4j",
+        "@maven//:com_fasterxml_jackson_core_jackson_annotations",
+        "@maven//:com_nimbusds_nimbus_jose_jwt",
+        "@maven//:org_pac4j_pac4j_oidc",
+        "@maven//:org_springframework_boot_spring_boot_autoconfigure",
+        "@maven//:com_fasterxml_jackson_core_jackson_databind",
+        "@maven//:com_nimbusds_oauth2_oidc_sdk",
+        "@maven//:org_pac4j_pac4j_core",
+        "@maven//:org_slf4j_slf4j_api",
+        "@maven//:org_springframework_boot_spring_boot",
+        "@maven//:org_springframework_spring_beans",
+        "@maven//:org_springframework_spring_context",
+    ],
+)

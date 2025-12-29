@@ -1,0 +1,18 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "internal",
+    srcs = glob(["*.java"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:javax_servlet_javax_servlet_api",
+        "@maven//:org_pac4j_pac4j_core",
+        "@maven//:org_pac4j_jee_pac4j",
+        "@maven//:org_eclipse_jetty_jetty_servlet",
+        "@maven//:org_eclipse_jetty_jetty_util",
+        "@maven//:com_google_guava_guava",
+        "@maven//:org_commonjava_mimeparse_mimeparse",
+        "@maven//:org_eclipse_jetty_jetty_security",
+        "@maven//:org_eclipse_jetty_jetty_server",
+    ],
+)

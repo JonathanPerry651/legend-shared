@@ -31,16 +31,14 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 @SuppressWarnings("unused")
-public class ChainFixingFilterHandler extends ServletHandler
-{
+public class ChainFixingFilterHandler extends ServletHandler {
 
   private static final Logger log = Logger.getLogger(ChainFixingFilterHandler.class.getName());
   private final Map<String, Integer> priorityOverrides;
   private boolean reordered = false;
 
   private ChainFixingFilterHandler(
-      ServletHandler servletHandler, Map<String, Integer> priorityOverrides)
-  {
+      ServletHandler servletHandler, Map<String, Integer> priorityOverrides) {
     this.priorityOverrides = priorityOverrides;
     this.setFilters(servletHandler.getFilters());
     this.setFilterMappings(servletHandler.getFilterMappings());
@@ -50,49 +48,25 @@ public class ChainFixingFilterHandler extends ServletHandler
   }
 
   public static void apply(
-      ServletContextHandler servletContextHandler, Map<String, Integer> priorityOverrides)
-  {
+      ServletContextHandler servletContextHandler, Map<String, Integer> priorityOverrides) {
     servletContextHandler.setServletHandler(
         new ChainFixingFilterHandler(servletContextHandler.getServletHandler(), priorityOverrides));
   }
 
-  private void reorderFilters()
-  {
+  private void reorderFilters() {
     List<FilterHolder> filters = Arrays.asList(this.getFilters());
     List<FilterMapping> mappings = Arrays.asList(this.getFilterMappings());
 
-    Map<String, Integer> priorities =
-        filters.stream()
-            .collect(
-                Collectors.toMap(
-                    FilterHolder::getName,
-                    filter ->
-                    {
-                      Priority priority =
-                          filter.getFilter().getClass().getAnnotation(Priority.class);
-                      if (priority == null)
-                      {
-                        priority =
-                            new Priority()
-                            {
-                              @Override
-                              public Class<? extends Annotation> annotationType()
-                              {
-                                return null;
-                              }
+    Map<String, Integer> priorities = filters.stream()
+        .collect(
+            Collectors.toMap(
+                FilterHolder::getName,
+                filter -> {
+                  Priority priority = filter.getFilter().getClass().getAnnotation(Priority.class);
+                  return priority != null ? priority.value() : 0;
+                }));
 
-                              @Override
-                              public int value()
-                              {
-                                return 0;
-                              }
-                            };
-                      }
-                      return priority.value();
-                    }));
-
-    if (priorityOverrides != null)
-    {
+    if (priorityOverrides != null) {
       priorities.putAll(priorityOverrides);
     }
 
@@ -102,16 +76,14 @@ public class ChainFixingFilterHandler extends ServletHandler
     log.info(
         "Reordered filters as "
             + mappings.stream()
-            .map(FilterMapping::getFilterName)
-            .collect(Collectors.joining(" -> ")));
+                .map(FilterMapping::getFilterName)
+                .collect(Collectors.joining(" -> ")));
   }
 
   @Override
   protected synchronized FilterChain getFilterChain(
-      Request baseRequest, String pathInContext, ServletHolder servletHolder)
-  {
-    if (!reordered)
-    {
+      Request baseRequest, String pathInContext, ServletHolder servletHolder) {
+    if (!reordered) {
       reordered = true;
       reorderFilters();
     }

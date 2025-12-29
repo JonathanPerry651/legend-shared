@@ -1,0 +1,17 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "legend-shared-opentracing-jersey",
+    srcs = glob(["src/main/java/**/*.java"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//legend-shared/legend-shared-opentracing-base",
+        "@maven//:io_opentracing_opentracing_api",
+        "@maven//:io_opentracing_opentracing_util",
+        "@maven//:javax_ws_rs_javax_ws_rs_api",
+        "@maven//:javax_annotation_javax_annotation_api", # Standard for Jersey
+        "@maven//:io_zipkin_reporter2_zipkin_reporter",
+        "@maven//:io_zipkin_zipkin2_zipkin",
+        "@maven//:org_slf4j_slf4j_api",
+    ],
+)

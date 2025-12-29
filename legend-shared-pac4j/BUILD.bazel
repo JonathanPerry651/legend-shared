@@ -1,0 +1,18 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "legend-shared-pac4j",
+    visibility = ["//visibility:public"],
+    exports = [
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j:legend_client_finder",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j:legend_pac4j_bundle",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j:mongo_consumer",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j:serialization_helper",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/hazelcaststore",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/internal",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/kerberos",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/mongoauthorizer",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/mongostore",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/sessionutil",
+    ],
+)

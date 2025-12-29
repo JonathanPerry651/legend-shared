@@ -1,0 +1,64 @@
+load("@rules_java//java:defs.bzl", "java_library", "java_test")
+
+java_library(
+    name = "legend-shared-server",
+    resources = glob(["src/main/resources/**"]),
+    visibility = ["//visibility:public"],
+    exports = [
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/bundles",
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/localassets",
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/staticserver",
+    ],
+)
+
+java_test(
+    name = "LocalAssetServletTest",
+    srcs = ["src/test/java/org/finos/legend/server/shared/localassets/LocalAssetServletTest.java"],
+    deps = [
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/localassets",
+        "@maven//:io_dropwizard_dropwizard_testing",
+        "@maven//:junit_junit",
+        "@maven//:javax_servlet_javax_servlet_api",
+        "@maven//:org_mockito_mockito_core",
+        "@maven//:com_google_guava_guava",
+        "@maven//:javax_ws_rs_javax_ws_rs_api",
+    ],
+    resources = glob(["src/test/resources/**"]),
+    resource_strip_prefix = "legend-shared/legend-shared-server/src/test/resources",
+)
+
+java_test(
+    name = "OpenTracingBundleTest",
+    srcs = ["src/test/java/org/finos/legend/server/shared/bundles/OpenTracingBundleTest.java"],
+    deps = [
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/bundles",
+        "@maven//:io_dropwizard_dropwizard_core",
+        "@maven//:io_dropwizard_dropwizard_testing",
+        "@maven//:io_dropwizard_dropwizard_configuration",
+        "@maven//:io_opentracing_opentracing_api",
+        "@maven//:io_opentracing_opentracing_mock",
+        "@maven//:io_opentracing_opentracing_util",
+        "@maven//:javax_ws_rs_javax_ws_rs_api",
+        "@maven//:junit_junit",
+    ],
+    data = glob(["src/test/resources/**"]),
+    resources = glob(["src/test/resources/**"]),
+    resource_strip_prefix = "legend-shared/legend-shared-server/src/test/resources",
+)
+
+java_test(
+    name = "HtmlRouterRedirectBundleTest",
+    srcs = ["src/test/java/org/finos/legend/server/shared/bundles/HtmlRouterRedirectBundleTest.java"],
+    deps = [
+        "//legend-shared/legend-shared-server/src/main/java/org/finos/legend/server/shared/bundles",
+        "@maven//:io_dropwizard_dropwizard_testing",
+        "@maven//:io_dropwizard_dropwizard_core",
+        "@maven//:io_dropwizard_dropwizard_configuration",
+        "@maven//:junit_junit",
+        "@maven//:javax_ws_rs_javax_ws_rs_api",
+        "@maven//:com_google_guava_guava",
+    ],
+    data = glob(["src/test/resources/**"]),
+    resources = glob(["src/test/resources/**"]),
+    resource_strip_prefix = "legend-shared/legend-shared-server/src/test/resources",
+)

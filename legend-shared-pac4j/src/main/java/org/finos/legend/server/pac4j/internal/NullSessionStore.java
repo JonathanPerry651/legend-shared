@@ -19,55 +19,48 @@ import org.pac4j.core.context.session.SessionStore;
 
 import java.util.Optional;
 
-public class NullSessionStore implements SessionStore<WebContext>
-{
+public class NullSessionStore implements SessionStore {
 
   public static final NullSessionStore INSTANCE = new NullSessionStore();
 
-  private NullSessionStore()
-  {
+  private NullSessionStore() {
   }
 
+
+
   @Override
-  public String getOrCreateSessionId(WebContext context)
-  {
+  public String getOrCreateSessionId(WebContext context) {
     return null;
   }
 
   @Override
-  public Optional<Object> get(WebContext context, String key)
-  {
+  public Optional<Object> get(WebContext context, String key) {
     return Optional.empty();
   }
 
   @Override
-  public void set(WebContext context, String key, Object value)
-  {
+  public void set(WebContext context, String key, Object value) {
 
   }
 
   @Override
-  public boolean destroySession(WebContext context)
-  {
+  public boolean destroySession(WebContext context) {
     return false;
   }
 
   @Override
-  public Optional getTrackableSession(WebContext context)
-  {
+  public Optional<Object> getTrackableSession(WebContext context) {
     return Optional.empty();
   }
 
   @Override
-  public Optional<SessionStore<WebContext>> buildFromTrackableSession(WebContext context,
-                                                                      Object trackableSession)
-  {
+  public Optional<SessionStore> buildFromTrackableSession(WebContext context,
+      Object trackableSession) {
     return Optional.empty();
   }
 
   @Override
-  public boolean renewSession(WebContext context)
-  {
+  public boolean renewSession(WebContext context) {
     return false;
   }
 }

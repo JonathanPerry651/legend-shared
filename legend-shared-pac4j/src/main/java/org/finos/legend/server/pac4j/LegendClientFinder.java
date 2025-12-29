@@ -30,62 +30,49 @@ import org.pac4j.core.util.Pac4jConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
-public class LegendClientFinder extends DefaultSecurityClientFinder
-{
+public class LegendClientFinder extends DefaultSecurityClientFinder {
   private static final Logger logger = LoggerFactory.getLogger(DefaultSecurityClientFinder.class);
 
   String clientNameParameter = Pac4jConstants.DEFAULT_CLIENT_NAME_PARAMETER;
   String defaultClient;
 
-  public LegendClientFinder(String defaultClient)
-  {
+  public LegendClientFinder(String defaultClient) {
     super();
     this.defaultClient = defaultClient;
   }
 
-  public LegendClientFinder()
-  {
+  public LegendClientFinder() {
     super();
   }
 
   @Override
-  public List<Client<? extends Credentials>> find(Clients clients, WebContext context, String clientNames)
-  {
+  public List<Client<? extends Credentials>> find(Clients clients, WebContext context, String clientNames) {
     List<Client<? extends Credentials>> result = new ArrayList<>();
     String securityClientNames = clientNames;
     logger.debug("Provided clientNames: {}", clientNames);
-    if (clientNames == null)
-    {
+    if (clientNames == null) {
       securityClientNames = clients.getDefaultSecurityClients();
       logger.debug("Default security clients: {}", securityClientNames);
-      if (securityClientNames == null && clients.findAllClients().size() == 1)
-      {
+      if (securityClientNames == null && clients.findAllClients().size() == 1) {
         securityClientNames = ((Client) clients.getClients().get(0)).getName();
         logger.debug("Only client: {}", securityClientNames);
       }
     }
 
-    if (CommonHelper.isNotBlank(securityClientNames))
-    {
+    if (CommonHelper.isNotBlank(securityClientNames)) {
       List<String> names = Arrays.asList(securityClientNames.split(","));
       String clientNameOnRequest = context.getRequestParameter(this.clientNameParameter).orElse(null);
       logger.debug("clientNameOnRequest: {}", clientNameOnRequest);
       String nameFound;
-      if (clientNameOnRequest != null)
-      {
+      if (clientNameOnRequest != null) {
         result = findUtil(clients, names, clientNameOnRequest);
-      } else if (defaultClient != null)
-      {
+      } else if (defaultClient != null) {
         logger.debug("defaultClient: {}", defaultClient);
         result = findUtil(clients, names, defaultClient);
-      } else
-      {
+      } else {
         Iterator var13 = names.iterator();
 
-        while (var13.hasNext())
-        {
+        while (var13.hasNext()) {
           nameFound = (String) var13.next();
           Client client = clients.findClient(nameFound).get();
           result.add(client);
@@ -93,41 +80,35 @@ public class LegendClientFinder extends DefaultSecurityClientFinder
       }
     }
 
-    logger.debug("result: {}", result.stream().map((c) ->
-    {
+    logger.debug("result: {}", result.stream().map((c) -> {
       return c.getName();
     }).collect(Collectors.toList()));
     return result;
   }
 
-  public List<Client<? extends Credentials>> findUtil(Clients clients, List<String> names, String toFind)
-  {
+  public List<Client<? extends Credentials>> findUtil(Clients clients, List<String> names, String toFind) {
     List<Client<? extends Credentials>> result = new ArrayList<>();
     Client client = clients.findClient(toFind).get();
     String nameFound = client.getName();
     boolean found = false;
     Iterator var11 = names.iterator();
 
-    while (var11.hasNext())
-    {
+    while (var11.hasNext()) {
       String name = (String) var11.next();
-      if (CommonHelper.areEqualsIgnoreCaseAndTrim(name, nameFound))
-      {
+      if (CommonHelper.areEqualsIgnoreCaseAndTrim(name, nameFound)) {
         result.add(client);
         found = true;
         break;
       }
     }
 
-    if (!found)
-    {
+    if (!found) {
       throw new TechnicalException("Client not allowed: " + nameFound);
     }
     return result;
   }
 
-  public String getDefaultClient()
-  {
+  public String getDefaultClient() {
     return defaultClient;
   }
 }

@@ -1,0 +1,71 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "serialization_helper",
+    srcs = [
+        "SerializableProfile.java",
+        "SerializationHelper.java",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:org_pac4j_pac4j_core",
+        "@maven//:com_fasterxml_jackson_core_jackson_databind",
+    ],
+)
+
+java_library(
+    name = "mongo_consumer",
+    srcs = ["MongoDbConsumer.java"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:org_mongodb_mongodb_driver_sync",
+    ],
+)
+
+java_library(
+    name = "legend_client_finder",
+    srcs = ["LegendClientFinder.java"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:org_pac4j_pac4j_core",
+        "@maven//:org_slf4j_slf4j_api",
+    ],
+)
+
+java_library(
+    name = "legend_pac4j_bundle",
+    srcs = [
+        "LegendPac4jBundle.java",
+        "LegendPac4jConfiguration.java",
+    ],
+    visibility = ["//visibility:public"],
+    deps = [
+        ":legend_client_finder",
+        ":mongo_consumer",
+        ":serialization_helper",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/hazelcaststore",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/internal",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/kerberos",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/mongoauthorizer",
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/mongostore",
+        "@maven//:com_fasterxml_jackson_core_jackson_databind",
+        "@maven//:com_google_guava_guava",
+        "@maven//:io_dropwizard_dropwizard_core",
+        "@maven//:io_dropwizard_dropwizard_auth",
+        "@maven//:io_dropwizard_dropwizard_configuration",
+        "@maven//:org_pac4j_dropwizard_pac4j",
+        "@maven//:org_pac4j_jax_rs_core",
+        "@maven//:org_pac4j_jee_pac4j",
+        "@maven//:org_pac4j_pac4j_core",
+        "@maven//:javax_servlet_javax_servlet_api",
+        "@maven//:org_eclipse_jetty_jetty_servlet",
+        "@maven//:org_apache_commons_commons_lang3",
+        "@maven//:org_mongodb_mongodb_driver_sync",
+        "@maven//:org_mongodb_bson",
+    ],
+    exports = [
+        ":legend_client_finder",
+        ":mongo_consumer",
+        ":serialization_helper",
+    ],
+)

@@ -20,68 +20,56 @@ import java.util.Optional;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.core.context.session.SessionStore;
 
-public class HttpSessionStore implements SessionStore<WebContext>
-{
+public class HttpSessionStore implements SessionStore {
 
-  private final Map<Class<? extends WebContext>, SessionStore<? extends WebContext>>
-      underlyingStores;
+  private final Map<Class<? extends WebContext>, SessionStore> underlyingStores;
 
-  public HttpSessionStore(
-      Map<Class<? extends WebContext>, SessionStore<? extends WebContext>> underlyingStores)
-  {
+  public HttpSessionStore(Map<Class<? extends WebContext>, SessionStore> underlyingStores) {
     this.underlyingStores = underlyingStores;
   }
 
-  private SessionStore getUnderlyingSessionStore(WebContext context)
-  {
-    SessionStore<? extends WebContext> sessionStore = this.underlyingStores.get(context.getClass());
-    if (sessionStore == null)
-    {
+  private SessionStore getUnderlyingSessionStore(WebContext context) {
+    SessionStore sessionStore = this.underlyingStores.get(context.getClass());
+    if (sessionStore == null) {
       return NullSessionStore.INSTANCE;
     }
     return sessionStore;
   }
 
+
+
   @Override
-  public String getOrCreateSessionId(WebContext context)
-  {
+  public String getOrCreateSessionId(WebContext context) {
     return getUnderlyingSessionStore(context).getOrCreateSessionId(context);
   }
 
   @Override
-  public Optional<Object> get(WebContext context, String key)
-  {
+  public Optional<Object> get(WebContext context, String key) {
     return getUnderlyingSessionStore(context).get(context, key);
   }
 
   @Override
-  public void set(WebContext context, String key, Object value)
-  {
+  public void set(WebContext context, String key, Object value) {
     getUnderlyingSessionStore(context).set(context, key, value);
   }
 
   @Override
-  public boolean destroySession(WebContext context)
-  {
+  public boolean destroySession(WebContext context) {
     return getUnderlyingSessionStore(context).destroySession(context);
   }
 
   @Override
-  public Optional getTrackableSession(WebContext context)
-  {
+  public Optional<Object> getTrackableSession(WebContext context) {
     return getUnderlyingSessionStore(context).getTrackableSession(context);
   }
 
   @Override
-  public Optional<SessionStore<WebContext>> buildFromTrackableSession(
-      WebContext context, Object trackableSession)
-  {
+  public Optional<SessionStore> buildFromTrackableSession(WebContext context, Object trackableSession) {
     return getUnderlyingSessionStore(context).buildFromTrackableSession(context, trackableSession);
   }
 
   @Override
-  public boolean renewSession(WebContext context)
-  {
+  public boolean renewSession(WebContext context) {
     return getUnderlyingSessionStore(context).renewSession(context);
   }
 }

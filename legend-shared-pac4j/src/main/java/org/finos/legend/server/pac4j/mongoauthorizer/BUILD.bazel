@@ -1,0 +1,15 @@
+load("@rules_java//java:defs.bzl", "java_library")
+
+java_library(
+    name = "mongoauthorizer",
+    srcs = glob(["*.java"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j:mongo_consumer",
+        "@maven//:com_fasterxml_jackson_core_jackson_annotations",
+        "@maven//:org_mongodb_mongodb_driver_sync",
+        "@maven//:org_mongodb_bson",
+        "@maven//:org_pac4j_pac4j_core",
+        "@maven//:org_slf4j_slf4j_api",
+    ],
+)

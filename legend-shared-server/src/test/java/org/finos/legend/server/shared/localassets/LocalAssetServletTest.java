@@ -21,25 +21,24 @@ import static org.mockito.Mockito.*;
 import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.HttpHeaders;
-import org.glassfish.grizzly.servlet.WebappContext;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-public class LocalAssetServletTest
-{
+public class LocalAssetServletTest {
   @Test
-  public void testIndexCacheControl() throws ServletException, IOException
-  {
-    LocalAssetServlet servlet = new LocalAssetServlet(ImmutableMap.of(), "web", "/", "index.html", StandardCharsets.UTF_8);
+  public void testIndexCacheControl() throws ServletException, IOException {
+    LocalAssetServlet servlet = new LocalAssetServlet(ImmutableMap.of(), "web", "/", "index.html",
+        StandardCharsets.UTF_8);
     HttpServletRequest request = mock(HttpServletRequest.class);
     when(request.getServletPath()).thenReturn("/ui/index.html");
     when(request.getRequestURI()).thenReturn("/ui/index.html");
-    when(request.getServletContext()).thenReturn(new WebappContext("testApp"));
+    when(request.getServletContext()).thenReturn(mock(ServletContext.class));
     HttpServletResponse response = mock(HttpServletResponse.class);
     servlet.doGet(request, response);
     ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
@@ -47,15 +46,14 @@ public class LocalAssetServletTest
     Assert.assertEquals("no-cache, no-transform, must-revalidate", captor.getValue());
   }
 
-
   @Test
-  public void testImageCacheControl() throws ServletException, IOException
-  {
-    LocalAssetServlet servlet = new LocalAssetServlet(ImmutableMap.of(), "web", "/", "index.html", StandardCharsets.UTF_8);
+  public void testImageCacheControl() throws ServletException, IOException {
+    LocalAssetServlet servlet = new LocalAssetServlet(ImmutableMap.of(), "web", "/", "index.html",
+        StandardCharsets.UTF_8);
     HttpServletRequest request = mock(HttpServletRequest.class);
     when(request.getServletPath()).thenReturn("/ui/gs.svg");
     when(request.getRequestURI()).thenReturn("/ui/gs.svg");
-    when(request.getServletContext()).thenReturn(new WebappContext("testApp"));
+    when(request.getServletContext()).thenReturn(mock(ServletContext.class));
     HttpServletResponse response = mock(HttpServletResponse.class);
     servlet.doGet(request, response);
     verify(response, never()).addHeader(eq(HttpHeaders.CACHE_CONTROL), any());

@@ -26,10 +26,11 @@ import org.pac4j.core.profile.CommonProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.pac4j.core.profile.UserProfile;
+
 @SuppressWarnings("unused")
-public class MongoDbAuthorizer extends AbstractCheckAuthenticationAuthorizer<CommonProfile>
-    implements MongoDbConsumer
-{
+public class MongoDbAuthorizer extends AbstractCheckAuthenticationAuthorizer<UserProfile>
+    implements MongoDbConsumer {
   public static final String NAME = "mongoAuthorizer";
   private static final Logger logger = LoggerFactory.getLogger(MongoDbAuthorizer.class);
   private MongoCollection<Document> collection;
@@ -38,32 +39,29 @@ public class MongoDbAuthorizer extends AbstractCheckAuthenticationAuthorizer<Com
   private String collectionName;
 
   @Override
-  protected boolean isProfileAuthorized(WebContext webContext, CommonProfile u)
-  {
-    String id = u.getId();
+  public boolean isProfileAuthorized(WebContext webContext, UserProfile u) {
+    if (!(u instanceof CommonProfile)) {
+      return false;
+    }
+    String id = ((CommonProfile) u).getId();
     Document doc = collection.find(new Document("_id", id)).first();
-    if (doc != null)
-    {
+    if (doc != null) {
       logger.debug("Allowing user {} - found in Mongo Collection", id);
       return true;
-    } else
-    {
+    } else {
       logger.warn("Disallowing user {} - not found in Mongo Collection", id);
       return false;
     }
   }
 
   @Override
-  public boolean isAuthorized(WebContext context, List<CommonProfile> profiles)
-  {
-    return isAnyAuthorized(context, profiles);
+  public boolean isAuthorized(WebContext context, List<UserProfile> profiles) {
+    return profiles.stream().anyMatch(p -> isProfileAuthorized(context, p));
   }
 
   @Override
-  public void setupDb(MongoDatabase database)
-  {
-    if (collectionName == null)
-    {
+  public void setupDb(MongoDatabase database) {
+    if (collectionName == null) {
       throw new RuntimeException("Collection name must be specified");
     }
     collection = database.getCollection(collectionName);

@@ -8,8 +8,8 @@ java_library(
     ],
     visibility = ["//visibility:public"],
     deps = [
-        "@maven//:org_pac4j_pac4j_core",
-        "@maven//:com_fasterxml_jackson_core_jackson_databind",
+        "@legend_maven//:org_pac4j_pac4j_core",
+        "@legend_maven//:com_fasterxml_jackson_core_jackson_databind",
     ],
 )
 
@@ -18,7 +18,7 @@ java_library(
     srcs = ["MongoDbConsumer.java"],
     visibility = ["//visibility:public"],
     deps = [
-        "@maven//:org_mongodb_mongodb_driver_sync",
+        "@legend_maven//:org_mongodb_mongodb_driver_sync",
     ],
 )
 
@@ -27,8 +27,8 @@ java_library(
     srcs = ["LegendClientFinder.java"],
     visibility = ["//visibility:public"],
     deps = [
-        "@maven//:org_pac4j_pac4j_core",
-        "@maven//:org_slf4j_slf4j_api",
+        "@legend_maven//:org_pac4j_pac4j_core",
+        "@legend_maven//:org_slf4j_slf4j_api",
     ],
 )
 
@@ -48,20 +48,20 @@ java_library(
         "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/kerberos",
         "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/mongoauthorizer",
         "//legend-shared/legend-shared-pac4j/src/main/java/org/finos/legend/server/pac4j/mongostore",
-        "@maven//:com_fasterxml_jackson_core_jackson_databind",
-        "@maven//:com_google_guava_guava",
-        "@maven//:io_dropwizard_dropwizard_core",
-        "@maven//:io_dropwizard_dropwizard_auth",
-        "@maven//:io_dropwizard_dropwizard_configuration",
-        "@maven//:org_pac4j_dropwizard_pac4j",
-        "@maven//:org_pac4j_jax_rs_core",
-        "@maven//:org_pac4j_jee_pac4j",
-        "@maven//:org_pac4j_pac4j_core",
-        "@maven//:javax_servlet_javax_servlet_api",
-        "@maven//:org_eclipse_jetty_jetty_servlet",
-        "@maven//:org_apache_commons_commons_lang3",
-        "@maven//:org_mongodb_mongodb_driver_sync",
-        "@maven//:org_mongodb_bson",
+        "@legend_maven//:com_fasterxml_jackson_core_jackson_databind",
+        "@legend_maven//:com_google_guava_guava",
+        "@legend_maven//:io_dropwizard_dropwizard_core",
+        "@legend_maven//:io_dropwizard_dropwizard_auth",
+        "@legend_maven//:io_dropwizard_dropwizard_configuration",
+        "@legend_maven//:org_pac4j_dropwizard_pac4j",
+        "@legend_maven//:org_pac4j_jax_rs_core",
+        "@legend_maven//:org_pac4j_jee_pac4j",
+        "@legend_maven//:org_pac4j_pac4j_core",
+        "@legend_maven//:javax_servlet_javax_servlet_api",
+        "@legend_maven//:org_eclipse_jetty_jetty_servlet",
+        "@legend_maven//:org_apache_commons_commons_lang3",
+        "@legend_maven//:org_mongodb_mongodb_driver_sync",
+        "@legend_maven//:org_mongodb_bson",
     ],
     exports = [
         ":legend_client_finder",

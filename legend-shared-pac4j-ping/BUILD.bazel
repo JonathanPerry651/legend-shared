@@ -9,11 +9,11 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "//legend-shared/legend-shared-pac4j",
-        "@maven//:com_fasterxml_jackson_core_jackson_annotations",
-        "@maven//:com_nimbusds_nimbus_jose_jwt",
-        "@maven//:org_pac4j_pac4j_http",
-        "@maven//:org_pac4j_pac4j_oidc",
-        "@maven//:org_pac4j_pac4j_core",
-        "@maven//:org_slf4j_slf4j_api",
+        "@legend_maven//:com_fasterxml_jackson_core_jackson_annotations",
+        "@legend_maven//:com_nimbusds_nimbus_jose_jwt",
+        "@legend_maven//:org_pac4j_pac4j_http",
+        "@legend_maven//:org_pac4j_pac4j_oidc",
+        "@legend_maven//:org_pac4j_pac4j_core",
+        "@legend_maven//:org_slf4j_slf4j_api",
     ],
 )

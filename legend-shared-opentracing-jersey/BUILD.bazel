@@ -6,12 +6,12 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "//legend-shared/legend-shared-opentracing-base",
-        "@maven//:io_opentracing_opentracing_api",
-        "@maven//:io_opentracing_opentracing_util",
-        "@maven//:javax_ws_rs_javax_ws_rs_api",
-        "@maven//:javax_annotation_javax_annotation_api", # Standard for Jersey
-        "@maven//:io_zipkin_reporter2_zipkin_reporter",
-        "@maven//:io_zipkin_zipkin2_zipkin",
-        "@maven//:org_slf4j_slf4j_api",
+        "@legend_maven//:io_opentracing_opentracing_api",
+        "@legend_maven//:io_opentracing_opentracing_util",
+        "@legend_maven//:javax_ws_rs_javax_ws_rs_api",
+        "@legend_maven//:javax_annotation_javax_annotation_api", # Standard for Jersey
+        "@legend_maven//:io_zipkin_reporter2_zipkin_reporter",
+        "@legend_maven//:io_zipkin_zipkin2_zipkin",
+        "@legend_maven//:org_slf4j_slf4j_api",
     ],
 )

@@ -5,9 +5,9 @@ java_library(
     srcs = ["LocalAssetServlet.java"],
     visibility = ["//visibility:public"],
     deps = [
-        "@maven//:javax_servlet_javax_servlet_api",
-        "@maven//:com_google_guava_guava",
-        "@maven//:io_dropwizard_dropwizard_servlets",
-        "@maven//:javax_ws_rs_javax_ws_rs_api",
+        "@legend_maven//:javax_servlet_javax_servlet_api",
+        "@legend_maven//:com_google_guava_guava",
+        "@legend_maven//:io_dropwizard_dropwizard_servlets",
+        "@legend_maven//:javax_ws_rs_javax_ws_rs_api",
     ],
 )

@@ -6,15 +6,15 @@ java_library(
     # resources = glob(["src/main/resources/**"]), # Assuming empty based on others
     visibility = ["//visibility:public"],
     deps = [
-        "@maven//:io_opentracing_opentracing_api",
-        "@maven//:io_opentracing_opentracing_util",
-        "@maven//:io_opentracing_opentracing_noop",
-        "@maven//:javax_servlet_javax_servlet_api",
-        "@maven//:javax_ws_rs_javax_ws_rs_api",
-        "@maven//:io_opentracing_contrib_opentracing_jaxrs2", # Likely needed for ServerTracingInterceptor
-        "@maven//:org_eclipse_jetty_jetty_server",
-        "@maven//:org_eclipse_jetty_jetty_servlet",
-        "@maven//:org_slf4j_slf4j_api",
-        "@maven//:io_prometheus_simpleclient",
+        "@legend_maven//:io_opentracing_opentracing_api",
+        "@legend_maven//:io_opentracing_opentracing_util",
+        "@legend_maven//:io_opentracing_opentracing_noop",
+        "@legend_maven//:javax_servlet_javax_servlet_api",
+        "@legend_maven//:javax_ws_rs_javax_ws_rs_api",
+        "@legend_maven//:io_opentracing_contrib_opentracing_jaxrs2", # Likely needed for ServerTracingInterceptor
+        "@legend_maven//:org_eclipse_jetty_jetty_server",
+        "@legend_maven//:org_eclipse_jetty_jetty_servlet",
+        "@legend_maven//:org_slf4j_slf4j_api",
+        "@legend_maven//:io_prometheus_simpleclient",
     ],
 )

@@ -8,9 +8,9 @@ java_library(
     visibility = ["//visibility:public"],
     deps = [
         "//legend-shared/legend-shared-opentracing-base",
-        "@maven//:io_zipkin_reporter2_zipkin_reporter",
-        "@maven//:io_zipkin_zipkin2_zipkin",
-        "@maven//:com_squareup_okhttp3_mockwebserver",
-        "@maven//:junit_junit",
+        "@legend_maven//:io_zipkin_reporter2_zipkin_reporter",
+        "@legend_maven//:io_zipkin_zipkin2_zipkin",
+        "@legend_maven//:com_squareup_okhttp3_mockwebserver",
+        "@legend_maven//:junit_junit",
     ],
 )
